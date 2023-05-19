@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="hangaman.css" />
+    <link rel="shortcut icon" href="hangman.ico" />
+    <title>HangMan</title>
+
+    <script
+      src="https://code.jquery.com/jquery-3.6.1.min.js"
+      integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <img src="./hangman.png" /><br />
+    <button id="hangman">Hangman: Click here to start the game</button>
+    <script>
+      $("#hangman").click(function () {
+        let words = [
+          "bird",
+          "monkey",
+          "elephant",
+          "college",
+          "cat",
+          "dog",
+          "pig",
+          "mouse",
+          "cow",
+          "chichen",
+          "duck",
+          "car",
+          "house",
+          "mother",
+          "laptop",
+          "computer",
+          "phone",
+          "flower",
+          "pen",
+          "crisps",
+          "zombie",
+          "guitar",
+          "head",
+          "headphones",
+        ];
+        let word = words[Math.floor(Math.random() * words.length)];
+        let answerArray = [];
+        for (var i = 0; i < word.length; i++) {
+          answerArray[i] = "_";
+        }
+        let remainingLetters = word.length;
+        let lives = 10;
+        while (remainingLetters > 0 && lives > 0) {
+          alert(answerArray.join(" "));
+          let guess = prompt(
+            "                                           Hangman\nGuess the word\n Type any single letter | You have 10 tries\n Click cancel to stop playing"
+          );
+          if (guess === null) {
+            break;
+          } else if (guess.length !== 1) {
+            alert("Please, enter a sigle letter");
+          } else {
+            for (var j = 0; j < word.length; j++) {
+              if (word[j] === guess.toLowerCase()) {
+                if (word[j] !== answerArray[j]) {
+                  answerArray[j] = guess.toLowerCase();
+                  remainingLetters--;
+                  lives++;
+                }
+              }
+            }
+            if (word[j] !== guess) {
+              lives--;
+            }
+          }
+          console.log(lives, word);
+        }
+        if (remainingLetters === 0) {
+          alert(answerArray.join(""));
+          alert("Good job, the word was " + word.toUpperCase());
+        }
+        if (lives === 0) {
+          alert("You lost...");
+        }
+        let ebf = [];
+        ebf = prompt(
+          "Write how I can improve this game!\n Thanks for playing =)"
+        );
+        ebf;
+      });
+    </script>
+  </body>
+</html>
